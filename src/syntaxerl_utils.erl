@@ -140,10 +140,14 @@ print_issues(FileName, [Issue | Issues]) ->
     print_issue(FileName, Issue),
     print_issues(FileName, Issues).
 
+print_issue(FileName, {warning, {Line, _}, Description}) ->
+    io:format("~s:~p: warning: ~s~n", [FileName, Line, Description]);
 print_issue(FileName, {warning, Line, Description}) ->
     io:format("~s:~p: warning: ~s~n", [FileName, Line, Description]);
 print_issue(FileName, {error, Description}) ->
     io:format("~s:~s~n", [FileName, Description]);
+print_issue(FileName, {error, {Line, _}, Description}) ->
+    io:format("~s:~p: ~s~n", [FileName, Line, Description]).
 print_issue(FileName, {error, Line, Description}) ->
     io:format("~s:~p: ~s~n", [FileName, Line, Description]).
 
